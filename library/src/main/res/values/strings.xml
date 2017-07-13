@@ -2,5 +2,5 @@
   ~ Copyright (C) 2017 Baidu, Inc. All Rights Reserved.
   -->
 <resources>
-    <string name="app_name">library</string>
+    <string name="app_name">damocles-common</string>
 </resources>
