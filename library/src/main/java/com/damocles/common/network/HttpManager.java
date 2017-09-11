@@ -29,6 +29,7 @@ import com.damocles.common.util.CommonUtils;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -85,6 +86,23 @@ public final class HttpManager {
     public static void cancelAllRequests() {
         Log.i(TAG, "cancel all requests");
         getInstance().mOkHttpClient.dispatcher().cancelAll();
+    }
+
+    public static void cancelRequest(String url) {
+        List<Call> calls = getInstance().mOkHttpClient.dispatcher().runningCalls();
+        for (Call call : calls) {
+            if (TextUtils.equals(call.request().url().toString(), url)) {
+                call.cancel();
+                Log.e(TAG, "cancel running reuqest, url=" + url);
+            }
+        }
+        calls = getInstance().mOkHttpClient.dispatcher().queuedCalls();
+        for (Call call : calls) {
+            if (TextUtils.equals(call.request().url().toString(), url)) {
+                call.cancel();
+                Log.e(TAG, "cancel queued reuqest, url=" + url);
+            }
+        }
     }
 
     public static void clearCookies() {

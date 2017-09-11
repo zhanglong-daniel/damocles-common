@@ -12,6 +12,8 @@ import java.util.regex.Pattern;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
@@ -179,5 +181,37 @@ public final class CommonUtils {
             e.printStackTrace();
         }
         return 0L;
+    }
+
+    /**
+     * 通过包名启动app
+     *
+     * @param packageName
+     */
+    public static void startApp(Context context, String packageName) {
+        PackageManager packageManager = context.getPackageManager();
+        Intent intent = packageManager.getLaunchIntentForPackage(packageName);
+        if (intent != null) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY);
+            try {
+                context.startActivity(intent);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 读取apk文件的versionName
+     *
+     * @param context
+     * @param archiveFilePath
+     *
+     * @return
+     */
+    public static String getVersionNameFromApk(Context context, String archiveFilePath) {
+        PackageManager packageManager = context.getPackageManager();
+        PackageInfo packageInfo = packageManager.getPackageArchiveInfo(archiveFilePath, PackageManager.GET_ACTIVITIES);
+        return packageInfo == null ? "" : packageInfo.versionName;
     }
 }
