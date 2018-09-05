@@ -9,12 +9,14 @@ import java.util.Map;
  * Created by zhanglong02 on 17/6/23.
  */
 
-public interface IHttpRequest {
+public interface IHttpPostRequest {
 
     String getUrl();
 
     Map<String, String> getParams();
 
     void execute();
+
+    void cancel();
 
 }

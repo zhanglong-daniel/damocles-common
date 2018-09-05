@@ -31,6 +31,7 @@ final class HttpManagerUtil {
 
     static Request buildPostRequest(String url, String postJson) {
         Log.i(TAG, "POST URL: " + url);
+        Log.i(TAG, "postJson: \n" + postJson);
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         RequestBody requestBody = RequestBody.create(JSON, postJson);
         return requestBuilder(url).post(requestBody).build();

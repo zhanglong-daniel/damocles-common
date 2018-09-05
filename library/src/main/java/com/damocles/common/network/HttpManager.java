@@ -196,7 +196,11 @@ public final class HttpManager {
             @Override
             public void run() {
                 if (callback != null) {
-                    callback.onError(url, errMsg);
+                    if ("java.io.IOException: Canceled".equals(errMsg)) {
+                        callback.onCancel(url);
+                    } else {
+                        callback.onError(url, errMsg);
+                    }
                 }
             }
         });

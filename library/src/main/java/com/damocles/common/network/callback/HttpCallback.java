@@ -15,4 +15,6 @@ public interface HttpCallback {
     void onCookies(String url, List<String> cookies);
 
     void onError(String url, String errMsg);
+
+    void onCancel(String url);
 }

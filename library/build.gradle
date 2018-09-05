@@ -43,7 +43,7 @@ def releaseTime() {
 task makeJar(type: Copy) {
     delete 'build/libs/damocles_common.jar'
     from('build/intermediates/bundles/default/')
-    into('build/libs/')
+    into('../output')
     include('classes.jar')
     rename('classes.jar', "damocles_common_${releaseTime()}.jar")
 }
