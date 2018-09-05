@@ -35,17 +35,3 @@ dependencies {
     compile 'com.facebook.fresco:fresco:1.4.0'
     compile 'com.facebook.fresco:imagepipeline-okhttp3:1.4.0'
 }
-
-def releaseTime() {
-    return new Date().format("yyyyMMddHHmm")
-}
-
-task makeJar(type: Copy) {
-    delete 'build/libs/damocles_common.jar'
-    from('build/intermediates/bundles/default/')
-    into('../output')
-    include('classes.jar')
-    rename('classes.jar', "damocles_common_${releaseTime()}.jar")
-}
-
-makeJar.dependsOn(build)
